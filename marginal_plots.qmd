@@ -1,5 +1,5 @@
 ---
-title: "Marginal plots clearly explained"
+title: "Marginal plots"
 author: "Andrés Devegili"
 format:
   html:
@@ -13,34 +13,31 @@ execute:
 output-file: index.html
 ---
 
-# What are marginal plots?
-
-Marginal plots enrich a main plot (commonly a scatter plot) by adding additional visualizations along the margins of the axes.  
-These *marginal plots* allow you to highlight the distribution of data along a single axis, or to compare across both axes.
+**Marginal plots** live on the “margins” of a main plot, adding secondary information about the X and Y variables.
 
 ![](Page%205.png)
 
-They are widely used in exploratory data analysis and visualization to combine **context + relationship** in a single figure.
-
 ---
 
-# Marginal plot layouts
+# Layouts
 
-The position of marginal plots defines the type of layout:
-
-- **One-side** → distribution along a single axis.  
-- **Two-sides** → comparison along both axes.  
-- **Layers** → multiple plot types stacked on the same axis.
+Marginal plots live in different positions around the main plot. They may appear on one side or on two sides, most often above (x-axis) and to the right (y-axis). You can also add layers, stacking multiple plot types on the same margin for richer context.
 
 ![](Page%201.png)
 
+::: {.callout-caution}
+## Caution  
+The *main plot* should always be the star.  
+Marginal plots are there to provide secondary context, not to steal the spotlight.  
+::: 
+
 ---
 
-# Marginal plots inventory
+# Inventory
 
-Different plot types can serve as marginal visualizations.  
-Histograms, boxplots, density curves, strip plots, and violins are common options.  
-They can be combined in many ways depending on the analytic goal.
+Marginal plots come in many forms.
+Histograms, boxplots, density curves, strip plots, and violins are common choices, though almost any plot type can be used.
+When you add more than one marginal, they can either match (same type) or be mixed (different types) to enrich the story. You can also layer them to add even more context.
 
 ![](Page%202.png)
 
@@ -50,10 +47,16 @@ They can be combined in many ways depending on the analytic goal.
 
 ![](Page%204.png)
 
+::: {.callout-caution}
+## Caution 
+More isn’t always better.  
+Too many marginals can clutter your figure and make it exhausting to read.  
+::: 
+
 ---
 
-# How to code marginal plots?
-Below there are common recipes used in **Python** and **R**
+# Build your own marginal plots
+Some common recipes used in **Python** and **R**
 
 ## Python (Seaborn, jointplot)
 
@@ -71,6 +74,15 @@ g = sns.jointplot(
     joint_kws={"s": 80, "alpha": 0.8}
 )
 sns.set_theme(style="white")
+
+plt.subplots_adjust(top=0.9)
+
+# Title & Subtitle
+plt.suptitle(
+    "Relationship between total bill and tip.\n"
+    "With marginal histograms showing distributions", 
+    fontsize=14, fontweight="bold", y=1
+)
 
 # Avoid this line
 _ = g.set_axis_labels("Total bill (USD)", "Tip (USD)", labelpad=10)
