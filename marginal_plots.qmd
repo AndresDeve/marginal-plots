@@ -54,7 +54,7 @@ Adding too many marginals can clutter your plot and overwhelm the reader.
 ---
 
 # How to build marginal plots
-Two straightforward recipes in **Python** and **R**.
+Two recipes in **Python** and **R**.
 
 ## Python (Seaborn, jointplot)
 
@@ -78,8 +78,8 @@ plt.subplots_adjust(top=0.9)
 # Title (main + subtitle)
 plt.suptitle(
     "Relationship between total bill and tip.\n"
-    "With marginal histograms showing distributions", 
-    fontsize=14, fontweight="bold", y=1
+    "With marginal histograms showing distributions.", 
+    fontsize=14, y=1
 )
 
 _ = g.set_axis_labels("Total bill (USD)", "Tip (USD)", labelpad=10)
@@ -115,7 +115,7 @@ ggMarginal(p2, type = "density", fill = "lightgreen", color = "darkgreen", alpha
 
 ---
 
-## References
+## Packages
 
 **Python**
 [Seaborn](https://seaborn.pydata.org) |
@@ -135,7 +135,6 @@ ggMarginal(p2, type = "density", fill = "lightgreen", color = "darkgreen", alpha
   color: gray;
   background-color: white;
   padding: 6px 0;
-  border-top: 1px solid #ddd;
 ">
-© 2025 · <a href="https://github.com/AndresDeve" style="color:gray; text-decoration:none;">GitHub · AndresDeve</a>
+2025 · <a href="https://github.com/AndresDeve" style="color:gray; text-decoration:none;">GitHub · AndresDeve</a>
 </p>
