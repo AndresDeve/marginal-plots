@@ -1,0 +1,22 @@
+# Quarto build artifacts
+_site/
+_freeze/
+.quarto/
+
+# GitHub Pages output
+docs/
+
+# R / RStudio
+.Rhistory
+.RData
+.Rproj.user/
+
+# Python
+__pycache__/
+.ipynb_checkpoints/
+
+# Jupyter
+*.ipynb_checkpoints
+
+# macOS
+.DS_Store
