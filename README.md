@@ -1,8 +1,8 @@
 # Marginal Plots
 
-A simple project showing what marginal plots are and showing how to create them using **Python** (Seaborn, Matplotlib) and **R** (ggplot2, ggExtra).
+I explain what marginal plots are and show how to create marginal plots using **Python** (Seaborn, Matplotlib) and **R** (ggplot2, ggExtra).
 
-Marginal plots enrich scatterplots with additional visualizations (histograms, density curves, boxplots) along the margins to show the distribution of each variable.
+You may see the result in the following link:
 
 [![Website](https://img.shields.io/badge/View%20site-GitHub%20Pages-2ea44f)](https://andresdeve.github.io/marginal-plots/)
 
@@ -12,6 +12,18 @@ Marginal plots enrich scatterplots with additional visualizations (histograms, d
 
 <p align="center">
   <img src="Page%205.png" alt="Example marginal plots" width="500"/>
+</p>
+<p align="center">
+  <img src="Page%201.png" alt="Example marginal plots" width="500"/>
+</p>
+<p align="center">
+  <img src="Page%202.png" alt="Example marginal plots" width="500"/>
+</p>
+<p align="center">
+  <img src="Page%203.png" alt="Example marginal plots" width="500"/>
+</p>
+<p align="center">
+  <img src="Page%204.png" alt="Example marginal plots" width="500"/>
 </p>
 
 ---
