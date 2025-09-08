@@ -2,13 +2,6 @@ project:
   type: website
   output-dir: docs   # GitHub Pages servirá desde aquí
 
-website:
-  title: "Marginal Plots"
-  navbar:
-    left:
-      - text: Home
-        href: marginal_plots.qmd
-
 format:
   html:
     smooth-scroll: true
