@@ -3,8 +3,6 @@ _site/
 _freeze/
 .quarto/
 
-# GitHub Pages output
-docs/
 
 # R / RStudio
 .Rhistory
