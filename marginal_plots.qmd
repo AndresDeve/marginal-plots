@@ -13,21 +13,20 @@ execute:
 output-file: index.html
 ---
 
-**Marginal plots** live on the “margins” of a main plot, adding secondary information about the X and Y variables.
+Marginal plots live on the “margins” of a main plot, adding extra information about the X and Y variables. In the example below, the marginals show how each group is distributed along each axis, complementing the relationships in the main scatter plot.
 
-![](Page%205.png)
+![](Page%205.png){width=70% fig-align="center"}
 
 ---
 
 # Layouts
 
-Marginal plots live in different positions around the main plot. They may appear on one side or on two sides, most often above (x-axis) and to the right (y-axis). You can also add layers, stacking multiple plot types on the same margin for richer context.
+Marginal plots an be placed in different positions around the main plot. They may appear on one side or on two sides, most often **above** (x-axis) and **to the right** (y-axis). You can also add layers, stacking multiple plot types on the same margin for richer context.
 
-![](Page%201.png)
+![](Page%201.png){fig-align="center"}
 
 ::: {.callout-caution}
-## Caution  
-The *main plot* should always be the star.  
+## The *main plot* should always be the star
 Marginal plots are there to provide secondary context, not to steal the spotlight.  
 ::: 
 
@@ -39,24 +38,23 @@ Marginal plots come in many forms.
 Histograms, boxplots, density curves, strip plots, and violins are common choices, though almost any plot type can be used.
 When you add more than one marginal, they can either match (same type) or be mixed (different types) to enrich the story. You can also layer them to add even more context.
 
-![](Page%202.png)
+![](Page%202.png){fig-align="center"}
 
 
-![](Page%203.png)
+![](Page%203.png){fig-align="center"}
 
 
-![](Page%204.png)
+![](Page%204.png){fig-align="center"}
 
 ::: {.callout-caution}
-## Caution 
-More isn’t always better.  
-Too many marginals can clutter your figure and make it exhausting to read.  
+## More isn’t always better
+Adding too many marginals can clutter your plot and overwhelm the reader.  
 ::: 
 
 ---
 
-# Build your own marginal plots
-Some common recipes used in **Python** and **R**
+# How to build marginal plots
+Two straightforward recipes in **Python** and **R**.
 
 ## Python (Seaborn, jointplot)
 
@@ -67,7 +65,7 @@ import matplotlib.pyplot as plt
 # Dataset
 tips = sns.load_dataset("tips")
 
-# Lines to generate the MAIN + MARGINAL PLOTS
+# MAIN + MARGINAL PLOTS
 g = sns.jointplot(
     data=tips, x="total_bill", y="tip",
     kind="scatter", height=6, marginal_ticks=True,
@@ -77,17 +75,16 @@ sns.set_theme(style="white")
 
 plt.subplots_adjust(top=0.9)
 
-# Title & Subtitle
+# Title (main + subtitle)
 plt.suptitle(
     "Relationship between total bill and tip.\n"
     "With marginal histograms showing distributions", 
     fontsize=14, fontweight="bold", y=1
 )
 
-# Avoid this line
 _ = g.set_axis_labels("Total bill (USD)", "Tip (USD)", labelpad=10)
 
-# Optional: some cleaning
+# Optional: Tidy marginals
 for ax in (g.ax_marg_x, g.ax_marg_y):
     _ = sns.despine(ax=ax, top=True, right=True, left=True, bottom=True)
     ax.tick_params(left=False, labelleft=False, bottom=False, labelbottom=False)
@@ -101,7 +98,7 @@ plt.show()
 library(ggplot2)
 library(ggExtra)
 
-# regular ggplot code
+# Main ggplot scatter
 p2 <- ggplot(mtcars, aes(x = mpg, y = wt)) +
   geom_point(color = "darkgreen", size = 4, alpha = 0.6)+
   theme_classic()+
@@ -112,13 +109,13 @@ p2 <- ggplot(mtcars, aes(x = mpg, y = wt)) +
     subtitle = "With marginal densities"
   )
 
-# Lines to add the MARGINAL PLOTS
+# Add MARGINAL PLOTS
 ggMarginal(p2, type = "density", fill = "lightgreen", color = "darkgreen", alpha = 0.5)
 ```
 
 ---
 
-## Packages
+## References
 
 **Python**
 [Seaborn](https://seaborn.pydata.org) |
@@ -127,3 +124,18 @@ ggMarginal(p2, type = "density", fill = "lightgreen", color = "darkgreen", alpha
 **R**
 [ggplot2](https://ggplot2.tidyverse.org) | 
 [ggExtra](https://cran.r-project.org/package=ggExtra)
+
+<hr>
+<p style="
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 0.8em;
+  color: gray;
+  background-color: white;
+  padding: 6px 0;
+  border-top: 1px solid #ddd;
+">
+© 2025 · <a href="https://github.com/AndresDeve" style="color:gray; text-decoration:none;">GitHub · AndresDeve</a>
+</p>
