@@ -1,6 +1,8 @@
 # Marginal Plots
 
-I explain what marginal plots are and show how to create marginal plots using **Python** (Seaborn, Matplotlib) and **R** (ggplot2, ggExtra).
+This is a very short experimental project in which I explain what marginal plots are and show how to create marginal plots using some basic coding in **Python** (Seaborn, Matplotlib) and **R** (ggplot2, ggExtra). 
+
+To build the page, I used Quarto and GitHub. To build the main visualizations, I used python (Seaborn, Matplotlib).
 
 You may see the result in the following link:
 
