@@ -1,11 +1,14 @@
 ---
 title: "Marginal plots"
-author: "Andrés Devegili"
 format:
   html:
     smooth-scroll: true
     toc: false
     embed-resources: true
+    code-fold: true
+    code-summary: "Show code"
+    highlight-style: github
+    css: styles.css
 execute:
   echo: true
   warning: false
@@ -13,7 +16,24 @@ execute:
 output-file: index.html
 ---
 
-Marginal plots live on the “margins” of a main plot, adding extra information about the X and Y variables. In the example below, the marginals show how each group is distributed along each axis, complementing the relationships in the main scatter plot.
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Lato:wght@400;700&family=Montserrat:wght@500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<p style="font-size:0.85em; color:#777; margin-bottom:4px; line-height:1;">
+  Author
+</p>
+
+<p style="font-size:0.9em; font-family: 'Helvetica Neue', Arial, sans-serif; color:#222;">
+  Andrés Devegili
+  <img src="andres.jpeg" alt="Andrés Devegili" width="28"
+       style="border-radius:50%; vertical-align:middle; margin-left:3px; height:auto;"/>
+</p>
+
+# Introduction
+
+Marginal plots live on the “margins” of a main plot, adding extra information about the X and Y variables. In the example below, the marginals show how each group is distributed along each axis, complementing the relationships in the main plot.
 
 ![](Page%205.png){width=70% fig-align="center"}
 
@@ -21,13 +41,14 @@ Marginal plots live on the “margins” of a main plot, adding extra informatio
 
 # Layouts
 
-Marginal plots an be placed in different positions around the main plot. They may appear on one side or on two sides, most often **above** (x-axis) and **to the right** (y-axis). You can also add layers, stacking multiple plot types on the same margin for richer context.
+Marginal plots can be placed in different positions around the main plot, but they are most commonly shown on one side or two sides, most often **above** (x-axis) and **to the right** (y-axis).  
+They can also be layered, stacking multiple plot types on the same margin for richer context. 
 
 ![](Page%201.png){fig-align="center"}
 
 ::: {.callout-caution}
 ## The *main plot* should always be the star
-Marginal plots are there to provide secondary context, not to steal the spotlight.  
+Marginal plots are there to provide complementary information, not to steal the spotlight.  
 ::: 
 
 ---
@@ -53,10 +74,11 @@ Adding too many marginals can clutter your plot and overwhelm the reader.
 
 ---
 
-# How to build marginal plots
-Two recipes in **Python** and **R**.
+# Implementation
+Some recipes in **Python** and **R**.
 
-## Python (Seaborn, jointplot)
+#### Python: Two-sides Histogram
+*(Key function: `seaborn.jointplot`)*
 
 ```{python}
 import seaborn as sns
@@ -75,16 +97,9 @@ sns.set_theme(style="white")
 
 plt.subplots_adjust(top=0.9)
 
-# Title (main + subtitle)
-plt.suptitle(
-    "Relationship between total bill and tip.\n"
-    "With marginal histograms showing distributions.", 
-    fontsize=14, y=1
-)
-
 _ = g.set_axis_labels("Total bill (USD)", "Tip (USD)", labelpad=10)
 
-# Optional: Tidy marginals
+# Optional: clean marginals
 for ax in (g.ax_marg_x, g.ax_marg_y):
     _ = sns.despine(ax=ax, top=True, right=True, left=True, bottom=True)
     ax.tick_params(left=False, labelleft=False, bottom=False, labelbottom=False)
@@ -92,8 +107,85 @@ for ax in (g.ax_marg_x, g.ax_marg_y):
 plt.show()
 ```
 
-## R (ggplot2+ggExtra)
+#### Python: Two-sides layered (boxplot + histogram)
+*(Key function: `plt.subplot_mosaic`)*
 
+```{python}
+#| eval: false
+#| echo: true
+#| code-fold: true
+#| code-summary: "Code"
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# ---- Data: mtcars
+df = pd.read_csv("https://raw.githubusercontent.com/selva86/datasets/master/mtcars.csv")
+df["cyl"] = df["cyl"].astype(str)
+
+# Purple-ish palette
+palette = sns.color_palette("Purples", n_colors=df["cyl"].nunique())
+hist_color = "#9b59b6"   # medium purple for histograms
+
+# ---- Mosaic layout
+scheme = """
+BBB..
+DDD..
+AAAEC
+AAAEC
+AAAEC
+"""
+
+fig, axs = plt.subplot_mosaic(scheme, figsize=(8, 6), constrained_layout=False)
+axA, axB, axC, axD, axE = axs["A"], axs["B"], axs["C"], axs["D"], axs["E"]
+
+# MAIN (A): scatter
+sns.scatterplot(
+    data=df, x="mpg", y="wt", hue="cyl", palette=palette,
+    s=70, alpha=0.85, legend=False, ax=axA
+)
+axA.set_xlabel("Miles per gallon (mpg)")
+axA.set_ylabel("Weight (1000 lbs)")
+
+# TOP (B): histogram of x (mpg)
+axB.hist(df["mpg"], bins=15, color=hist_color, alpha=0.7, edgecolor="white")
+axB.set_xlim(axA.get_xlim())
+for sp in axB.spines.values(): sp.set_visible(False)
+axB.tick_params(left=False, labelleft=False, bottom=False, labelbottom=False)
+
+# TOP (D): boxplots of mpg by cyl
+sns.boxplot(
+    data=df, x="mpg", y="cyl", orient="h",
+    palette=palette, fliersize=2, linewidth=1,width=0.8, ax=axD
+)
+axD.set_xlim(axA.get_xlim())
+axD.set_xlabel("") ; axD.set_ylabel("")
+for sp in axD.spines.values(): sp.set_visible(False)
+axD.tick_params(left=False, labelleft=False, bottom=False, labelbottom=False)
+
+# RIGHT (E): boxplots of wt by cyl
+sns.boxplot(
+    data=df, x="cyl", y="wt",
+    palette=palette, fliersize=2, linewidth=1, width=0.8, ax=axE
+)
+axE.set_ylim(axA.get_ylim())
+axE.set_xlabel("") ; axE.set_ylabel("")
+for sp in axE.spines.values(): sp.set_visible(False)
+axE.tick_params(left=False, labelleft=False, bottom=False, labelbottom=False)
+
+# RIGHT (C): histogram of y (wt)
+axC.hist(df["wt"], bins=12, orientation="horizontal",
+         color=hist_color, alpha=0.7, edgecolor="white")
+axC.set_ylim(axA.get_ylim())
+for sp in axC.spines.values(): sp.set_visible(False)
+axC.tick_params(left=False, labelleft=False, bottom=False, labelbottom=False)
+
+plt.show();
+```
+![](Layered_marginal_plot.png){fig-align="left"}
+
+#### R: Two-sides dentity curves
+*(Key function: `ggExtra::ggMarginal`)*
 ```{r}
 library(ggplot2)
 library(ggExtra)
@@ -101,16 +193,47 @@ library(ggExtra)
 # Main ggplot scatter
 p2 <- ggplot(mtcars, aes(x = mpg, y = wt)) +
   geom_point(color = "darkgreen", size = 4, alpha = 0.6)+
-  theme_classic()+
+  theme_minimal()+
   labs(
     x = "Miles per gallon (mpg)",
-    y = "Weight (1000 lbs)",
-    title = "Fuel efficiency vs. vehicle weight",
-    subtitle = "With marginal densities"
+    y = "Weight (1000 lbs)"
   )
 
 # Add MARGINAL PLOTS
 ggMarginal(p2, type = "density", fill = "lightgreen", color = "darkgreen", alpha = 0.5)
+```
+
+#### R: Two-sides hybrid (density + histogram)
+*(Key function: `gridExtra::grid.arrange`)*
+```{r}
+library(ggplot2)
+library(gridExtra)
+library(grid)
+
+# Main scatter
+p_main <- ggplot(mtcars, aes(x = mpg, y = wt)) +
+  geom_point(color = "darkred", size = 6, alpha = 0.6) +
+  theme_minimal() +
+  labs(x = "Miles per gallon (mpg)",
+       y = "Weight (1000 lbs)")
+
+# Top marginal: density
+p_top <- ggplot(mtcars, aes(x = mpg)) +
+  geom_density(fill = "salmon", color = "darkred", alpha = 0.5) +
+  theme_void()
+
+# Right marginal: histogram
+p_right <- ggplot(mtcars, aes(x = wt)) +
+  geom_histogram(fill = "salmon", color = "darkred", bins = 12) +
+  coord_flip() +
+  theme_void()
+
+# Layout
+layout <- grid.arrange(
+  arrangeGrob(p_top, p_main, ncol = 1, heights = c(1, 6)),
+  arrangeGrob(NULL, p_right, ncol = 1, heights = c(1, 6)),
+  ncol = 2, widths = c(3, 1)
+)
 ```
 
 ---
@@ -123,7 +246,7 @@ ggMarginal(p2, type = "density", fill = "lightgreen", color = "darkgreen", alpha
 
 **R**
 [ggplot2](https://ggplot2.tidyverse.org) | 
-[ggExtra](https://cran.r-project.org/package=ggExtra)
+[ggExtra](https://cran.r-project.org/package=ggExtra) | [gridExtra](https://cran.r-project.org/package=gridExtra)
 
 <hr>
 <p style="

@@ -4,27 +4,13 @@
     "href": "index.html",
     "title": "Marginal plots",
     "section": "",
-    "text": "Marginal plots live on the “margins” of a main plot, adding extra information about the X and Y variables. In the example below, the marginals show how each group is distributed along each axis, complementing the relationships in the main scatter plot."
-  },
-  {
-    "objectID": "index.html#python-seaborn-jointplot",
-    "href": "index.html#python-seaborn-jointplot",
-    "title": "Marginal plots",
-    "section": "Python (Seaborn, jointplot)",
-    "text": "Python (Seaborn, jointplot)\n\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\n# Dataset\ntips = sns.load_dataset(\"tips\")\n\n# MAIN + MARGINAL PLOTS\ng = sns.jointplot(\n    data=tips, x=\"total_bill\", y=\"tip\",\n    kind=\"scatter\", height=6, marginal_ticks=True,\n    joint_kws={\"s\": 80, \"alpha\": 0.8}\n)\nsns.set_theme(style=\"white\")\n\nplt.subplots_adjust(top=0.9)\n\n# Title (main + subtitle)\nplt.suptitle(\n    \"Relationship between total bill and tip.\\n\"\n    \"With marginal histograms showing distributions.\", \n    fontsize=14, y=1\n)\n\n_ = g.set_axis_labels(\"Total bill (USD)\", \"Tip (USD)\", labelpad=10)\n\n# Optional: Tidy marginals\nfor ax in (g.ax_marg_x, g.ax_marg_y):\n    _ = sns.despine(ax=ax, top=True, right=True, left=True, bottom=True)\n    ax.tick_params(left=False, labelleft=False, bottom=False, labelbottom=False)\n\nplt.show()"
-  },
-  {
-    "objectID": "index.html#r-ggplot2ggextra",
-    "href": "index.html#r-ggplot2ggextra",
-    "title": "Marginal plots",
-    "section": "R (ggplot2+ggExtra)",
-    "text": "R (ggplot2+ggExtra)\n\nlibrary(ggplot2)\nlibrary(ggExtra)\n\n# Main ggplot scatter\np2 &lt;- ggplot(mtcars, aes(x = mpg, y = wt)) +\n  geom_point(color = \"darkgreen\", size = 4, alpha = 0.6)+\n  theme_classic()+\n  labs(\n    x = \"Miles per gallon (mpg)\",\n    y = \"Weight (1000 lbs)\",\n    title = \"Fuel efficiency vs. vehicle weight\",\n    subtitle = \"With marginal densities\"\n  )\n\n# Add MARGINAL PLOTS\nggMarginal(p2, type = \"density\", fill = \"lightgreen\", color = \"darkgreen\", alpha = 0.5)"
+    "text": "Author\nAndrés Devegili"
   },
   {
     "objectID": "index.html#packages",
     "href": "index.html#packages",
     "title": "Marginal plots",
     "section": "Packages",
-    "text": "Packages\nPython Seaborn | Matplotlib\nR ggplot2 | ggExtra\n\n\n2025 · GitHub · AndresDeve"
+    "text": "Packages\nPython Seaborn | Matplotlib\nR ggplot2 | ggExtra | gridExtra\n\n\n2025 · GitHub · AndresDeve"
   }
 ]
