@@ -1,8 +1,11 @@
 # Marginal Plots
 
-A **Quarto scrollytelling project** demonstrating how to create and explain marginal plots using **Python** (Seaborn, Matplotlib) and **R** (ggplot2, ggExtra).
+A simple project showing what marginal plots are and showing how to create them using **Python** (Seaborn, Matplotlib) and **R** (ggplot2, ggExtra).
 
 Marginal plots enrich scatterplots with additional visualizations (histograms, density curves, boxplots) along the margins to show the distribution of each variable.
+
+Website:
+[![Website](https://img.shields.io/badge/View%20site-GitHub%20Pages-2ea44f)](https://andresdeve.github.io/marginal-plots/)
 
 ---
 
@@ -20,3 +23,9 @@ Marginal plots enrich scatterplots with additional visualizations (histograms, d
    ```bash
    git clone https://github.com/AndresDeve/marginal-plots.git
    cd marginal-plots
+
+# Marginal Plots
+
+[![Website](https://img.shields.io/badge/View%20site-GitHub%20Pages-2ea44f)](https://andresdeve.github.io/marginal-plots/)
+
+A minimal scrollytelling project explaining marginal plots with examples in R and Python.
