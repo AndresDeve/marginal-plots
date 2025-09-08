@@ -119,15 +119,15 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 
-# ---- Data: mtcars
+# Data
 df = pd.read_csv("https://raw.githubusercontent.com/selva86/datasets/master/mtcars.csv")
 df["cyl"] = df["cyl"].astype(str)
 
-# Purple-ish palette
+
 palette = sns.color_palette("Purples", n_colors=df["cyl"].nunique())
 hist_color = "#9b59b6"   # medium purple for histograms
 
-# ---- Mosaic layout
+# Layout: KEY to arrange the Marginal plot LAYERS
 scheme = """
 BBB..
 DDD..
