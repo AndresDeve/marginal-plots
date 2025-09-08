@@ -9,7 +9,7 @@ Marginal plots enrich scatterplots with additional visualizations (histograms, d
 ## Preview
 
 <p align="center">
-  <img src="Page%201.png" alt="Example marginal plots" width="500"/>
+  <img src="Page%205.png" alt="Example marginal plots" width="500"/>
 </p>
 
 ---
