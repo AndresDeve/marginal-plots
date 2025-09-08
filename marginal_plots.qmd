@@ -1,0 +1,115 @@
+---
+title: "Marginal plots clearly explained"
+author: "Andrés Devegili"
+format:
+  html:
+    smooth-scroll: true
+    toc: false
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# What are marginal plots?
+
+Marginal plots enrich a main plot (commonly a scatter plot) by adding additional visualizations along the margins of the axes.  
+These *marginal plots* allow you to highlight the distribution of data along a single axis, or to compare across both axes.
+
+![](Page%205.png)
+
+They are widely used in exploratory data analysis and visualization to combine **context + relationship** in a single figure.
+
+---
+
+# Marginal plot layouts
+
+The position of marginal plots defines the type of layout:
+
+- **One-side** → distribution along a single axis.  
+- **Two-sides** → comparison along both axes.  
+- **Layers** → multiple plot types stacked on the same axis.
+
+![](Page%201.png)
+
+---
+
+# Marginal plots inventory
+
+Different plot types can serve as marginal visualizations.  
+Histograms, boxplots, density curves, strip plots, and violins are common options.  
+They can be combined in many ways depending on the analytic goal.
+
+![](Page%202.png)
+
+
+![](Page%203.png)
+
+
+![](Page%204.png)
+
+---
+
+# How to code marginal plots?
+Below there are common recipes used in **Python** and **R**
+
+## Python (Seaborn, jointplot)
+
+```{python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Dataset
+tips = sns.load_dataset("tips")
+
+# Lines to generate the MAIN + MARGINAL PLOTS
+g = sns.jointplot(
+    data=tips, x="total_bill", y="tip",
+    kind="scatter", height=6, marginal_ticks=True,
+    joint_kws={"s": 80, "alpha": 0.8}
+)
+sns.set_theme(style="white")
+
+# Avoid this line
+_ = g.set_axis_labels("Total bill (USD)", "Tip (USD)", labelpad=10)
+
+# Optional: some cleaning
+for ax in (g.ax_marg_x, g.ax_marg_y):
+    _ = sns.despine(ax=ax, top=True, right=True, left=True, bottom=True)
+    ax.tick_params(left=False, labelleft=False, bottom=False, labelbottom=False)
+
+plt.show()
+```
+
+## R (ggplot2+ggExtra)
+
+```{r}
+library(ggplot2)
+library(ggExtra)
+
+# regular ggplot code
+p2 <- ggplot(mtcars, aes(x = mpg, y = wt)) +
+  geom_point(color = "darkgreen", size = 4, alpha = 0.6)+
+  theme_classic()+
+  labs(
+    x = "Miles per gallon (mpg)",
+    y = "Weight (1000 lbs)",
+    title = "Fuel efficiency vs. vehicle weight",
+    subtitle = "With marginal densities"
+  )
+
+# Lines to add the MARGINAL PLOTS
+ggMarginal(p2, type = "density", fill = "lightgreen", color = "darkgreen", alpha = 0.5)
+```
+
+---
+
+## Packages
+
+**Python**
+[Seaborn](https://seaborn.pydata.org) |
+[Matplotlib](https://matplotlib.org)
+
+**R**
+[ggplot2](https://ggplot2.tidyverse.org) | 
+[ggExtra](https://cran.r-project.org/package=ggExtra)
