@@ -119,15 +119,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 
-# ---- Data: mtcars
+# Data
 df = pd.read_csv("https://raw.githubusercontent.com/selva86/datasets/master/mtcars.csv")
 df["cyl"] = df["cyl"].astype(str)
 
-# Purple-ish palette
 palette = sns.color_palette("Purples", n_colors=df["cyl"].nunique())
 hist_color = "#9b59b6"   # medium purple for histograms
 
-# ---- Mosaic layout
+# Layout: KEY for arranging marginal plot layers
 scheme = """
 BBB..
 DDD..
@@ -147,13 +146,13 @@ sns.scatterplot(
 axA.set_xlabel("Miles per gallon (mpg)")
 axA.set_ylabel("Weight (1000 lbs)")
 
-# TOP (B): histogram of x (mpg)
+# TOP (B) histogram
 axB.hist(df["mpg"], bins=15, color=hist_color, alpha=0.7, edgecolor="white")
 axB.set_xlim(axA.get_xlim())
 for sp in axB.spines.values(): sp.set_visible(False)
 axB.tick_params(left=False, labelleft=False, bottom=False, labelbottom=False)
 
-# TOP (D): boxplots of mpg by cyl
+# TOP (D) boxplots
 sns.boxplot(
     data=df, x="mpg", y="cyl", orient="h",
     palette=palette, fliersize=2, linewidth=1,width=0.8, ax=axD
@@ -163,7 +162,7 @@ axD.set_xlabel("") ; axD.set_ylabel("")
 for sp in axD.spines.values(): sp.set_visible(False)
 axD.tick_params(left=False, labelleft=False, bottom=False, labelbottom=False)
 
-# RIGHT (E): boxplots of wt by cyl
+# RIGHT (E) boxplots
 sns.boxplot(
     data=df, x="cyl", y="wt",
     palette=palette, fliersize=2, linewidth=1, width=0.8, ax=axE
@@ -173,7 +172,7 @@ axE.set_xlabel("") ; axE.set_ylabel("")
 for sp in axE.spines.values(): sp.set_visible(False)
 axE.tick_params(left=False, labelleft=False, bottom=False, labelbottom=False)
 
-# RIGHT (C): histogram of y (wt)
+# RIGHT (C) histogram 
 axC.hist(df["wt"], bins=12, orientation="horizontal",
          color=hist_color, alpha=0.7, edgecolor="white")
 axC.set_ylim(axA.get_ylim())
