@@ -16,15 +16,8 @@ Marginal plots enrich scatterplots with additional visualizations (histograms, d
 
 ---
 
-## How to run
 
 1. Clone this repository:
    ```bash
    git clone https://github.com/AndresDeve/marginal-plots.git
    cd marginal-plots
-
-# Marginal Plots
-
-[![Website](https://img.shields.io/badge/View%20site-GitHub%20Pages-2ea44f)](https://andresdeve.github.io/marginal-plots/)
-
-A minimal scrollytelling project explaining marginal plots with examples in R and Python.
